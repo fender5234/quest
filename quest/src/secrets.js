@@ -14,7 +14,7 @@ export const secrets = [
     number: 2,
     text: "Что за птица: Песен не поет, Гнезд не вьет, Людей и груз везет?",
     key: "Аэропорт",
-    answer: "самолет",
+    answer: ["самолет"],
     pass: "1234",
     nextLocation: "рыболовный магазин Павлова 6",
     actionNotHuman:
@@ -86,7 +86,7 @@ export const secrets = [
       "телёнок",
     ],
     pass: "1234",
-    nextLocation: "Радуга кафэ ",
+    nextLocation: "Радуга кафэ",
     actionNotHuman: "Найди QR код и  отсканируй его, реши загадку",
     actionWithHuman: "Выполни задание друга! и введи полученный ответ!",
   },
