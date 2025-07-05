@@ -107,3 +107,7 @@ body {
     color: #121212;
 
 }
+
+.wrong {
+    border-color: red;
+}

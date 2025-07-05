@@ -1,65 +1,38 @@
 import { secrets } from './secrets.js';
 import { currentStepIncreaseLocalStorage } from './utils/currentStepIncreaseLocalStorage.js';
 import { answerStepIncreaseLocalStorage } from './utils/answerStepIncreaseLocalStorage.js'
+import { checkingAnswer } from './chekingAnswer.js'
+import { textAreaInputCorrectly } from './utils/textAreaInputCorrectly.js';
+import { textAreaInputWrong } from './utils/textAreaInputWrong.js';
 
 function submitForm() {
-    console.log('Наша хуета!');
+
+
     const form = document.getElementById('form');
     const textArea = document.getElementById('text-area');
     const text = document.getElementById('text');
     const hiddenText = document.getElementById('hidden-text');
     const hiddenSubText = document.getElementById('hidden-sub-text');
 
-    let currentStep = localStorage.getItem('currentStep');
 
-    text.textContent = secrets[localStorage.getItem('currentStep')].text;
-    let key = secrets[currentStep].key;
-    let answer1 = secrets[currentStep].answer;
-    let response = '';
-    let answerCount = 0;
-
-
-
-    form.addEventListener('submit', (event) => {
+    function handleSubmit(event) {
         event.preventDefault();
-
-        // currentStepIncreaseLocalStorage();
-        // answerStepIncreaseLocalStorage();
-
-        response = textArea.value.trim().toLowerCase();
-
-        secrets[localStorage.getItem('currentStep')].answer.forEach(element => {
-            if (response === element) {
+        if (Number(localStorage.getItem('currentStep')) < secrets.length - 1) {
+            if (checkingAnswer(textArea, secrets)) {
                 currentStepIncreaseLocalStorage();
-                textArea.placeholder = 'Писать ответ тут ✏️';
-                textArea.style.cssText = 'border-color: unset;'
-                textArea.value = '';
+                text.textContent = secrets[localStorage.getItem('currentStep')].text;
+                textAreaInputCorrectly(textArea);
             } else {
-                console.log('НУ че то и неверное!');
-                textArea.value = '';
-                textArea.style.cssText = 'border-color: red;'
-                textArea.placeholder = 'Не верно  попробуй еще раз😔';
+                textAreaInputWrong(textArea);
             }
-        });
-        text.textContent = secrets[localStorage.getItem('currentStep')].text;
-        textArea.placeholder = 'Писать ответ тут ✏️';
-        // if (answerCount >= 3) {
-        //     hiddenText.classList.remove('hidden');
-        //     hiddenSubText.textContent = secrets[currentStep].key;
-        // }
+        } else {
+            text.textContent = 'Все получилось 🥳🥳🥳🥳';
+            textAreaInputCorrectly(textArea);
+        }
+    }
 
-        // if (answer1 === response) {
-        //     textArea.value = '';
-        //     text.textContent = 'Делаем дальнейшие действия!'
-        //     hiddenText.classList.add('hidden');
-        // } else {
-        //     textArea.value = '';
-        //     answerCount++;
-        //     textArea.style.cssText = 'border-color: red;'
-        //     textArea.placeholder = 'Не верно  попробуй еще раз😔';
-        // }
 
-    })
+    form.addEventListener('submit', handleSubmit)
 };
 
 export default submitForm;
