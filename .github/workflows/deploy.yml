@@ -37,7 +37,7 @@ jobs:
           rm -rf ${{ github.workspace }}/dist
           
           # Копируем собранные файлы в директорию dist
-          cp -R ${{ github.workspace }}/dist/* .
+          cp -R /home/runner/work/quest/dist/* .
           
           # Переключаемся на целевую ветку
           git checkout -B deploy-quest # замените на название вашей целевой ветки
