@@ -34,10 +34,10 @@ jobs:
           git config user.email github-actions@github.com
           
           # Удаляем старую директорию dist, если она существует
-          rm -rf ./dist
+          rm -rf /dist
           
           # Копируем собранные файлы в директорию dist
-          cp -R ./dist/* .
+          cp -R /dist/* .
           
           # Переключаемся на целевую ветку
           git checkout -B deploy-quest # замените на название вашей целевой ветки
