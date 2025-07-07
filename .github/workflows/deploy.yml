@@ -1,0 +1,59 @@
+name: Build & Deploy to Branch
+
+on:
+  push:
+    branches:
+      - main # выбираем основную ветку откуда будем брать изменения
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # Нужно для правильного git merge между ветками
+
+      - name: Set up Node.js environment
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18' # Версия Node.js, используемая проектом
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run build script
+        run: npm run build
+
+      - name: Push built files to another branch
+        env:
+          GH_PAT: ${{ secrets.GH_TOKEN }} # Используем токен для аутентификации
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          
+          # Удаляем старую директорию dist, если она существует
+          rm -rf dist
+          
+          # Копируем собранные файлы в директорию dist
+          cp -R build/* .
+          
+          # Переключаемся на целевую ветку
+          git checkout -B deploy-quest # замените на название вашей целевой ветки
+          
+          # Добавляем новые файлы
+          git add .
+          
+          # Проверка наличия изменений
+          if [[ $(git diff-index HEAD) != "" ]]; then
+            echo "Changes detected, committing..."
+            
+            # Коммитим изменения
+            git commit -m "Build and deploy from main at $(date +"%Y-%m-%d %T")"
+            
+            # Пушим в удаленный репозиторий
+            git push origin deploy-quest
+          else
+            echo "No changes found."
+          fi
