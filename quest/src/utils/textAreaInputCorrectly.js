@@ -1,5 +1,11 @@
 export function textAreaInputCorrectly(textArea) {
     textArea.value = "";
     textArea.classList.remove('wrong');
-    textArea.placeholder = ('Писать ответ тут ✏️');
+
+    if (textArea.id === 'text-area-pass') {
+        textArea.placeholder = ('Сюда вводить пароль 🤓');
+
+    } else {
+        textArea.placeholder = ('Писать ответ тут ✏️');
+    }
 };
