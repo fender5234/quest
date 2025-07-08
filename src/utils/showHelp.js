@@ -9,9 +9,9 @@ export function showHelp() {
     const hiddenSubText = document.getElementById('hidden-sub-text');
 
   
-    if (getCurrentAnswerStep() >= 2) {
+    if (getCurrentAnswerStep() >= 4) {
         hiddenText.classList.remove('hidden');
-        hiddenSubText.textContent = secrets[localStorage.getItem('currentStep')].key;
+        hiddenSubText.innerHTML = secrets[localStorage.getItem('currentStep')].key;
     } else {
         hiddenText.classList.add('hidden');
     }

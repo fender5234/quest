@@ -9,6 +9,9 @@ import { showHelp } from './utils/showHelp.js';
 import { resetAnswerStepLocalStorage } from './utils/resetAnswerStepLocalStorage.js';
 import { enterPassword } from './enterPassword.js';
 import { headerState } from './headerState.js';
+import { checkSucces } from './utils/checkSucces.js';
+import { audioHidden } from './utils/audioHidden.js';
+
 
 
 function submitForm() {
@@ -24,6 +27,8 @@ function submitForm() {
     const passForm = document.getElementById('form-pass');
     const textAreaPass = document.getElementById('text-area-pass')
 
+    const audio = document.getElementById('audio');
+
     function handlePassSubmit(event) {
         event.preventDefault();
 
@@ -32,23 +37,22 @@ function submitForm() {
             form.classList.remove('hidden');
             textAreaInputCorrectly(textAreaPass);
             currentStepIncreaseLocalStorage();
-            text.textContent = secrets[localStorage.getItem('currentStep')].text;
+            text.innerHTML = secrets[localStorage.getItem('currentStep')].text;
             header.textContent = headerState.question;
             resetAnswerStepLocalStorage();
+            
         } else {
             textAreaInputWrong(textAreaPass);
         }
+
+        checkSucces();
+
     }
-
-
-
-
 
 
     function handleSubmit(event) {
         event.preventDefault();
-        if (Number(localStorage.getItem('currentStep')) <= secrets.length - 1) {
-
+        if (Number(localStorage.getItem('currentStep')) < secrets.length - 1) {
             if (checkingAnswer(textArea, secrets)) {
                 header.textContent = headerState.questionPass;       //ответ верный
                 passForm.classList.remove('hidden');
@@ -57,17 +61,17 @@ function submitForm() {
                 text.innerHTML = secrets[localStorage.getItem('currentStep')].nextLocation;
                 resetAnswerStepLocalStorage();
                 showHelp();
+                audioHidden();
+                audio.classList.add('hidden');
 
             } else {                                        //ответ не верный
                 textAreaInputWrong(textArea);
                 answerStepIncreaseLocalStorage();
                 showHelp();
             }
-        } else {
-            text.textContent = 'Все получилось 🥳🥳🥳🥳';
-            textAreaInputCorrectly(textArea);
         }
     }
+
 
 
     form.addEventListener('submit', handleSubmit)

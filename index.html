@@ -10,17 +10,19 @@
 </head>
 
 <body>
-
-  <audio controls>
-    <source src="./src/3.mp3" type="audio/mpeg"> 
-  </audio>
+  <!-- <audio controls>
+    <source src="./src/3.mp3" type="audio/mpeg">
+  </audio> -->
   <div id="confetti-container">
 
   </div>
   <h1 class="header" id="header">Отгадай загадку!</h1>
   <div class="wrapper">
-    <p class="text" id="text">
-    </p>
+    <div class="text" id="text">
+    </div>
+    <audio class="hidden" controls id="audio">
+      <source src="./src/3.mp3" type="audio/mpeg">
+    </audio>
   </div>
   <div class="wrapper hidden" id="hidden-text">
     <h2 class="sub-text-header">Подсказка!</h2>
