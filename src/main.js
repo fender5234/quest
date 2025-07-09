@@ -4,7 +4,6 @@ import submitForm from '../src/sumbitForm.js';
 import { showHelp } from './utils/showHelp.js';
 import { checkSucces } from './utils/checkSucces.js';
 import { audioHidden } from './utils/audioHidden.js';
-import { confety } from './utils/confety.js';
 import { hiddenNextLocation } from './utils/hiddenNextLocation.js';
 
 
