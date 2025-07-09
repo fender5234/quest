@@ -44,6 +44,7 @@ function submitForm() {
             header.textContent = headerState.question;
             resetAnswerStepLocalStorage();
             resetAnswerpPassLocalStorage()
+            audioHidden();
         } else {
             textAreaInputWrong(textAreaPass);
         }
@@ -65,8 +66,8 @@ function submitForm() {
                 resetAnswerStepLocalStorage();
                 currentPassIncreaseLocalStorage();
                 showHelp();
-                audioHidden();
-                audio.classList.add('hidden');
+               
+                //audio.classList.remove('hidden');
 
             } else {                                        //ответ не верный
                 textAreaInputWrong(textArea);
