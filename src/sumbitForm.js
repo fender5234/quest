@@ -11,7 +11,7 @@ import { resetAnswerStepLocalStorage } from './utils/resetAnswerStepLocalStorage
 import { resetAnswerpPassLocalStorage } from './utils/resetAnswerpPassLocalStorage.js';
 import { enterPassword } from './enterPassword.js';
 import { headerState } from './headerState.js';
-import { checkSucces } from './utils/checkSucces.js'; 
+import { checkSucces } from './utils/checkSucces.js';
 import { audioHidden } from './utils/audioHidden.js';
 
 
@@ -65,10 +65,8 @@ function submitForm() {
                 text.innerHTML = secrets[localStorage.getItem('currentStep')].nextLocation;
                 resetAnswerStepLocalStorage();
                 currentPassIncreaseLocalStorage();
+                audioHidden();
                 showHelp();
-               
-                //audio.classList.remove('hidden');
-
             } else {                                        //ответ не верный
                 textAreaInputWrong(textArea);
                 answerStepIncreaseLocalStorage();
