@@ -20,5 +20,5 @@ window.addEventListener("load", function () {
     hiddenNextLocation();
     showHelp();
     submitForm();
-    confety();
+   
 });

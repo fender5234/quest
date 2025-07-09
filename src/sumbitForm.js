@@ -45,6 +45,11 @@ function submitForm() {
             resetAnswerStepLocalStorage();
             resetAnswerpPassLocalStorage()
             audioHidden();
+            if ( Number(localStorage.getItem('currentStep')) === 9){
+                const header = document.getElementById('header');
+                header.innerHTML = ("Поздравляю 🎂🍰🧁🥳🎈🎉🎊🎁");
+            }
+
         } else {
             textAreaInputWrong(textAreaPass);
         }
