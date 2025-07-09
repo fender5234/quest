@@ -2,14 +2,16 @@ import { secrets } from './secrets.js';
 import { currentStepIncreaseLocalStorage } from './utils/currentStepIncreaseLocalStorage.js';
 import { answerStepIncreaseLocalStorage } from './utils/answerStepIncreaseLocalStorage.js'
 import { getCurrentAnswerStep } from './getCurrentAnswerStep.js';
+import { currentPassIncreaseLocalStorage } from './utils/currentPassIncreaseLocalStorage.js';
 import { checkingAnswer } from './chekingAnswer.js'
 import { textAreaInputCorrectly } from './utils/textAreaInputCorrectly.js';
 import { textAreaInputWrong } from './utils/textAreaInputWrong.js';
 import { showHelp } from './utils/showHelp.js';
 import { resetAnswerStepLocalStorage } from './utils/resetAnswerStepLocalStorage.js';
+import { resetAnswerpPassLocalStorage } from './utils/resetAnswerpPassLocalStorage.js';
 import { enterPassword } from './enterPassword.js';
 import { headerState } from './headerState.js';
-import { checkSucces } from './utils/checkSucces.js';
+import { checkSucces } from './utils/checkSucces.js'; 
 import { audioHidden } from './utils/audioHidden.js';
 
 
@@ -28,6 +30,7 @@ function submitForm() {
     const textAreaPass = document.getElementById('text-area-pass')
 
     const audio = document.getElementById('audio');
+    const key = document.getElementById('hidden-text');
 
     function handlePassSubmit(event) {
         event.preventDefault();
@@ -40,7 +43,7 @@ function submitForm() {
             text.innerHTML = secrets[localStorage.getItem('currentStep')].text;
             header.textContent = headerState.question;
             resetAnswerStepLocalStorage();
-            
+            resetAnswerpPassLocalStorage()
         } else {
             textAreaInputWrong(textAreaPass);
         }
@@ -60,6 +63,7 @@ function submitForm() {
                 textAreaInputCorrectly(textArea);
                 text.innerHTML = secrets[localStorage.getItem('currentStep')].nextLocation;
                 resetAnswerStepLocalStorage();
+                currentPassIncreaseLocalStorage();
                 showHelp();
                 audioHidden();
                 audio.classList.add('hidden');
